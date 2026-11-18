@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8f3">
+  <title>RHK WISHES</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="top-header">
+    <div class="brand">
+      <div class="brand-mark">R</div>
+      <div>
+        <h1>RHK <span>WISHES</span></h1>
+        <p>Your creative workspace</p>
+      </div>
+    </div>
+
+    <button class="profile-button" onclick="showScreen('profile')" aria-label="Profile">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"></path>
+      </svg>
+    </button>
+  </header>
+
+  <main class="main-content">
+
+    <!-- HOME -->
+    <section class="screen active" id="homeScreen">
+
+      <!-- TRENDING FIRST -->
+      <div class="section-heading trending-heading">
+        <div>
+          <h3>Trending</h3>
+          <p>Popular experiences</p>
+        </div>
+
+        <div class="slider-controls">
+          <button onclick="moveTrending(-1)" aria-label="Previous">‹</button>
+          <button onclick="moveTrending(1)" aria-label="Next">›</button>
+        </div>
+      </div>
+
+      <div class="trending-window">
+        <div class="trending-track" id="trendingTrack"></div>
+      </div>
+
+      <div class="slider-dots" id="sliderDots"></div>
+
+      <!-- CATEGORIES SECOND -->
+      <div class="section-heading category-heading">
+        <div>
+          <h3>Categories</h3>
+          <p>Choose a category</p>
+        </div>
+
+        <button class="text-link" onclick="showScreen('explore')">
+          See all
+        </button>
+      </div>
+
+      <div class="category-grid">
+
+        <button class="category-card" onclick="openCategory('Birthday')">
+          <img src="birthday.jpg" alt="Birthday">
+          <span class="category-shade"></span>
+          <span class="category-info">
+            <strong>Birthday</strong>
+            <small>Birthday experiences</small>
+          </span>
+        </button>
+
+        <button class="category-card" onclick="openCategory('Love')">
+          <img src="love.jpg" alt="Love">
+          <span class="category-shade"></span>
+          <span class="category-info">
+            <strong>Love</strong>
+            <small>Personal experiences</small>
+          </span>
+        </button>
+
+        <button class="category-card" onclick="openCategory('Anniversary')">
+          <img src="anniversary.jpg" alt="Anniversary">
+          <span class="category-shade"></span>
+          <span class="category-info">
+            <strong>Anniversary</strong>
+            <small>Celebrate together</small>
+          </span>
+        </button>
+
+        <button class="category-card" onclick="openCategory('Invitation')">
+          <img src="invitation.jpg" alt="Invitation">
+          <span class="category-shade"></span>
+          <span class="category-info">
+            <strong>Invitation</strong>
+            <small>Special invitations</small>
+          </span>
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- EXPLORE -->
+    <section class="screen" id="exploreScreen">
+
+      <div class="page-heading">
+        <h2>Explore</h2>
+        <p>Find the perfect template.</p>
+      </div>
+
+      <div class="search-box">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m16 16 5 5"></path>
+        </svg>
+
+        <input
+          id="templateSearch"
+          type="search"
+          placeholder="Search templates..."
+          oninput="renderTemplates()">
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-chip active" onclick="setFilter('All', this)">All</button>
+        <button class="filter-chip" onclick="setFilter('Birthday', this)">Birthday</button>
+        <button class="filter-chip" onclick="setFilter('Love', this)">Love</button>
+        <button class="filter-chip" onclick="setFilter('Anniversary', this)">Anniversary</button>
+        <button class="filter-chip" onclick="setFilter('Invitation', this)">Invitation</button>
+      </div>
+
+      <div class="section-heading templates-heading">
+        <div>
+          <h3>All templates</h3>
+          <p>Choose a design</p>
+        </div>
+
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div class="template-grid" id="templateGrid"></div>
+
+    </section>
+
+    <!-- CREATE -->
+    <section class="screen" id="createScreen">
+
+      <div class="page-heading">
+        <h2>Create</h2>
+        <p>Start a new experience.</p>
+      </div>
+
+      <div class="create-option" onclick="showScreen('explore')">
+        <div class="option-icon orange-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+            <path d="M8 8h8M8 12h8M8 16h5"></path>
+          </svg>
+        </div>
+
+        <div>
+          <h3>Use a template</h3>
+          <p>Choose and customize a ready-made template.</p>
+        </div>
+
+        <span class="option-arrow">→</span>
+      </div>
+
+      <div class="create-option" onclick="showComingSoon('Blank experience')">
+        <div class="option-icon red-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </div>
+
+        <div>
+          <h3>Start from scratch</h3>
+          <p>Build a new experience.</p>
+        </div>
+
+        <span class="option-arrow">→</span>
+      </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="screen" id="projectsScreen">
+
+      <div class="page-heading">
+        <h2>Projects</h2>
+        <p>Your created experiences.</p>
+      </div>
+
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"></path>
+            <path d="M3 10h18"></path>
+          </svg>
+        </div>
+
+        <h3>No projects yet</h3>
+        <p>Your created projects will appear here.</p>
+
+        <button class="primary-button" onclick="showScreen('explore')">
+          Explore templates
+        </button>
+      </div>
+
+    </section>
+
+    <!-- PROFILE -->
+    <section class="screen" id="profileScreen">
+
+      <div class="page-heading">
+        <h2>Profile</h2>
+        <p>Manage your workspace.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="large-avatar">R</div>
+        <div>
+          <h3>RHK WISHES</h3>
+          <p>Your creative workspace</p>
+        </div>
+      </div>
+
+      <div class="profile-menu">
+        <div><span>Account</span><strong>Guest mode</strong></div>
+        <div><span>Projects</span><strong id="profileProjectCount">0</strong></div>
+        <div><span>App version</span><strong>1.0</strong></div>
+      </div>
+
+    </section>
+
+    <!-- TEMPLATE DETAILS -->
+    <section class="screen" id="detailScreen">
+      <button class="back-button" onclick="goBackFromDetail()">
+        ← Back
+      </button>
+
+      <div id="templateDetail"></div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+
+    <button class="nav-item active" data-screen="home" onclick="showScreen('home')">
+      <svg viewBox="0 0 24 24">
+        <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"></path>
+      </svg>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-item" data-screen="explore" onclick="showScreen('explore')">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"></path>
+      </svg>
+      <span>Explore</span>
+    </button>
+
+    <button class="nav-item create-nav" data-screen="create" onclick="showScreen('create')">
+      <span class="create-nav-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14"></path>
+        </svg>
+      </span>
+      <span>Create</span>
+    </button>
+
+    <button class="nav-item" data-screen="projects" onclick="showScreen('projects')">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3z"></path>
+        <path d="M3 10h18"></path>
+      </svg>
+      <span>Projects</span>
+    </button>
+
+    <button class="nav-item" data-screen="profile" onclick="showScreen('profile')">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4 21c0-4.2 3.2-7 8-7s8 2.8 8 7"></path>
+      </svg>
+      <span>Profile</span>
+    </button>
+
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<script src="templates.js"></script>
+<script src="engine.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
